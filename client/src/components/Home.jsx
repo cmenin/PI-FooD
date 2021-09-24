@@ -51,15 +51,34 @@ export default function Home() {
       <div>
         <div>
           <select onChange={(e) => handleSort(e)}>
-            <option value="asc">Ascendente</option>
-            <option value="desc">Descendente</option>
+            <option value="asc">AZ</option>
+            <option value="desc">DZ</option>
           </select>
           <select>
               <option value='all'>All</option>
-              <option value='created'>Created</option>
-              <option value='existing'>Existing</option>
+              {
+                    diets.map(d => <option>{d}</option>)
+                }
+              
           </select>
-        </div>
+          <select>
+              <option value='asc'>Score 0 - 100</option>
+              <option value='desc'>Score 100 - 0</option>
+          </select>
+          {/* <select onChange={(e) => {handleFilterDiet(e)}}>
+                <option>All</option>
+                {
+                    diets.map(d => <option>{d}</option>)
+                }
+            </select>
+            <select onChange={(e) => {handleSortName(e)}}>
+                <option value='asc'>A-Z</option>
+                <option value='desc'>Z-A</option>
+            </select>
+            <select onChange={(e) => {handleSortScore(e)}}>
+                <option value='asc'>Score 0 - 100</option>
+                <option value='desc'>Score 100 - 0</option>
+        </div> */}
       </div>
       
       <div>
@@ -67,6 +86,7 @@ export default function Home() {
           recipesPerPage={recipesPerPage}
           allRecipes={allRecipes.length}
           paginado={paginado}
+          currentRecipes
         />
       </div>
 
