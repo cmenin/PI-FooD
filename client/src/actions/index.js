@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 export function getRecipes(){
-    console.log("ESTAMOS EN LAS ACTIONS")
     return async function(dispatch){
+        console.log("ESTAMOS EN LAS ACTIONS")
         var json = await axios.get('http://localhost:3001/recipe');
-        console.log("ESTE ES EL JSON DEL BACK=> ", json)
+        console.log("ESTE ES EL JSON DEL BACK=> ", json.data)
         return dispatch ({
             type: 'GET_RECIPES',
             payload: json.data
@@ -12,7 +12,7 @@ export function getRecipes(){
     }
 }
 
-export function getNameDiets(name){
+export function getByName(name){
     return async function(dispatch){
         try{
             var json = await axios.get('http://localhost:3001/recipe?name' +  name)
@@ -28,10 +28,11 @@ export function getNameDiets(name){
 
 export function getDiets(){
     return async function(dispatch){
-        const info = axios.get('http://localhost:3001/dieta',{})
+        const {data} = await axios.get('http://localhost:3001/dieta')
+        console.log(data,"INDODATA ACTION")
         return dispatch({
             type: 'GET_DIETAS',
-            payload: info.data
+            payload: data
         })
     }
 }
@@ -43,15 +44,25 @@ export function getFilterDiets(payload){
     }
 }
 
-export function filterCreados(payload){
+export function filterApiCreados(payload){
     return{
-        type: 'FILTER_CREATED'
+        type: 'FILTER_API_CREATED',
+        payload
     }
 }
 
 export function orderByName(payload){
+    console.log(payload,"ahora en el ACTION")
     return{
         type: 'ORDER_BY_NAME',
+        payload
+    }
+}
+
+export default function orderByScore(payload){
+    console.log(payload,"EN EL ACTION")
+    return {
+        type: "ORDER_BY_SCORE",
         payload
     }
 }

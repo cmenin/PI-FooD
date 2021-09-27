@@ -10,26 +10,37 @@ module.exports = (sequelize) => {
       primaryKey: true,
       allowNull: false
     },
-    name: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     image:{
       type:DataTypes.STRING
     },
-    diets:{
-      type:DataTypes.STRING
-    },
+    // diets:{
+    //   type:DataTypes.STRING
+    // },
     summary:{
       type:DataTypes.STRING,
       allowNull: false
     },
-    aggregateLikes:{
-      type:DataTypes.STRING,
+    likes:{
+      type:DataTypes.INTEGER,
       defaultValue:0
     },
     healthScore:{
       type:DataTypes.INTEGER,
+      defaultValue:0
+    },
+    score:{
+      type: DataTypes.INTEGER,
+      defaultValue:0
+    },
+    cuisines:{
+      type: DataTypes.STRING,
+    },
+    cookingTime:{
+      type: DataTypes.INTEGER,
       defaultValue:0
     },
     instructions:{
