@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // eslint-disable-next-line no-unused-vars
 import { Link } from "react";
-import orderByScore, { filterApiCreados, getDiets, getFilterDiets, getRecipes, orderByName } from "../actions";
+import { orderByspoonacularScore, filterApiCreados, getDiets, getFilterDiets, getRecipes, orderByName } from "../actions";
 import Card from "./Card";
 import Paginado from "./Paginado";
+import SearchBar from "./Searchbar";
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -45,10 +46,10 @@ export default function Home() {
     dispatch(getFilterDiets(e.target.value))
   }
   
-  function handleScore(e) {
+  function handlespoonacularScore(e) {
     e.preventDefault()
     console.log(e.target.value,"EN EL FRONT")
-    dispatch(orderByScore(e.target.value))
+    dispatch(orderByspoonacularScore(e.target.value))
   }
 
   function handleCreados(e){
@@ -59,6 +60,9 @@ export default function Home() {
   return (
     <div>
       <div>
+        <SearchBar>
+        </SearchBar>
+
         <h1>Henry's Food</h1>
         <button
           onClick={(e) => {
@@ -81,7 +85,7 @@ export default function Home() {
                     allDietas?.map(d => <option key={d.id} value={d.title}>{d.title}</option>)
                 }
           </select>
-          <select onChange={e=> handleScore(e)}>
+          <select onChange={e=> handlespoonacularScore(e)}>
               <option value='asc'>Menor puntuacion</option>
               <option value='desc'>Mayor puntuacion</option>
           </select>
@@ -100,9 +104,9 @@ export default function Home() {
                 <option value='asc'>A-Z</option>
                 <option value='desc'>Z-A</option>
             </select>
-            <select onChange={(e) => {handleSortScore(e)}}>
-                <option value='asc'>Score 0 - 100</option>
-            <option value='desc'>Score 100 - 0</option> */}
+            <select onChange={(e) => {handleSortspoonacularScore(e)}}>
+                <option value='asc'>spoonacularScore 0 - 100</option>
+            <option value='desc'>spoonacularScore 100 - 0</option> */}
         </div> 
       </div>
       
@@ -116,8 +120,6 @@ export default function Home() {
       </div>
 
       {
-        
-
           currentRecipes?.map(r => {
               return (
                   <fragment>
@@ -126,7 +128,8 @@ export default function Home() {
               image={r.image ? r.image : r.image}
               diets={r.diets}
               key={r.id}
-              score = {r.healthScore}
+              Score = {r.spoonacularScore}
+              id={r.id}
               />
           </fragment>
         );
@@ -143,7 +146,7 @@ export default function Home() {
 //       diets: el.diets,
 //       summary: el.summary,
 //       likes: el.aggregateLikes,
-//       score: el.spoonacularScore,
+//       Score: el.spoonacularspoonacularScore,
 //       healthScore: el.healthScore,
 //       cookingTime: el.readyInMinutes,
 //       cuisines: el.cuisines,

@@ -2,12 +2,14 @@ const initialState = {
   recipes: [],
   allRecipes: [],
   dietas: [],
+  detail:[],
+  crearRecetas:[]
+  
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case "GET_RECIPES":
-      console.log("las recetas***********", action.payload);
       return {
         ...state,
         recipes: action.payload,
@@ -21,10 +23,14 @@ function rootReducer(state = initialState, action) {
       };
 
     case "GET_DIETAS":
-      console.log("action rdducer***********", action.payload);
       return {
         ...state,
         dietas: action.payload,
+      };
+    case "GET_DETAIL":
+      return {
+        ...state,
+        detail: action.payload,
       };
 
     case "FILTER_BY_DIETS":
@@ -36,7 +42,7 @@ function rootReducer(state = initialState, action) {
       };
 
     case "ORDER_BY_NAME":
-      console.log(action.payload, "AHORA EN EL REDUCER");
+
       if (action.payload === "asc")
         return {
           ...state,
@@ -51,18 +57,18 @@ function rootReducer(state = initialState, action) {
         ),
       };
     case "ORDER_BY_SCORE":
-      console.log(action.payload,"EN EL REDUCER")
+
       if (action.payload === "asc")
         return {
           ...state,
           recipes: [...state.allRecipes].sort(
-            (a, b) => (a.healthScore > b.healthScore ? 1 : -1) //
+            (a, b) => (a.spoonacularScore > b.healthspoonacularScore ? 1 : -1) //
           ),
         };
       return {
         ...state,
         recipes: [...state.allRecipes].sort((a, b) =>
-          a.healthScore > b.healthScore ? -1 : 1
+          a.spoonacularScore > b.spoonacularScore ? -1 : 1
         ),
       };
 
@@ -70,6 +76,12 @@ function rootReducer(state = initialState, action) {
  let allRep = state.allRecipes;
     let filtrado = action.payload === 'created'? allRep.filter(c => c.createdInDb): allRep.filter(c=> !c.createdInDb) 
     return  action.payload === 'all'? {...state, recipes: allRep}: {...state, recipes: filtrado}
+
+    case "POST_RECIPE":
+      return{
+        ...state,
+      }
+    
 
     default:
       return state;

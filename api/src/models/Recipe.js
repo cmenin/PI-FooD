@@ -44,7 +44,7 @@ module.exports = (sequelize) => {
       defaultValue:0
     },
     instructions:{
-      type: DataTypes.STRING
+      type: DataTypes.ARRAY(DataTypes.STRING),
     },
     createdInDb:{ 
       type: DataTypes.BOOLEAN,
@@ -52,6 +52,8 @@ module.exports = (sequelize) => {
       defaultValue: true 
     }
 
+  },{
+    timestamps: false
   });
 };
 
