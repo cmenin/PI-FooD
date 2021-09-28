@@ -4,22 +4,24 @@ import './card.css'
 
 export default function Card({title, image,diets, score, id}){
     return(
-        <div className='card-container'>
-            <div className= 'card'>
-                <div className='front'>
+        
+        <div className="container">
             <Link to={`/recipe/${id}`}>
-            <img src={image} alt= "img not found" width="200xp" height="250xp" />
-            </Link>
-            </div>
-            <div className='back'>
-
-            <h5 className='h5score'>{score}</h5>
+            <div>
+            <img className="img" src={image} alt= "img not found" width="200xp" height="250xp" />
+    
             <h3 className='h3title'>{title}</h3>
+            
+            <h5 className='h5score'>{score}</h5>
             {
-                typeof (diets) === "string" ? diets.map(d=> <h5>{d.diets}</h5> ) :  <h5>{title} </h5>
+                typeof (diets) === "string" ? diets.map(d=> <h5 className="diets">{d.diets}</h5> ) :  <h5 className="diets">{title} </h5>
             }
             </div>
+        
+            </Link>
             </div>
-        </div>
+            
+        
+        
     )
 }

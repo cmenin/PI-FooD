@@ -62,7 +62,7 @@ export default function Home() {
       <div>
         <SearchBar>
         </SearchBar>
-
+        <a href="/recipe">Crear Receta</a>
         <h1>Henry's Food</h1>
         <button
           onClick={(e) => {
