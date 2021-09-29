@@ -6,11 +6,12 @@ import { orderByspoonacularScore, filterApiCreados, getDiets, getFilterDiets, ge
 import Card from "./Card";
 import Paginado from "./Paginado";
 import SearchBar from "./Searchbar";
+import "./home.css"
 
 export default function Home() {
     const dispatch = useDispatch();
     const allRecipes = useSelector((state) => state.recipes);
-    const allDietas = useSelector((state) => state.dietas);
+    const allDietas = useSelector((state) => state.diet);
     const [orden, setOrden] = useState(" ");
     const [currentPage, setCurrenPage] = useState(1);
   const [recipesPerPage, setrecipesPerPage] = useState(9);
@@ -26,8 +27,8 @@ export default function Home() {
   };
 
   useEffect(() => {
-    dispatch(getRecipes());
     dispatch(getDiets());
+    dispatch(getRecipes());
 
   }, [dispatch]);
 
@@ -58,6 +59,7 @@ export default function Home() {
   }
 
   return (
+    <body className="body">
     <div>
       <div>
         <SearchBar>
@@ -136,6 +138,7 @@ export default function Home() {
       })
       }
     </div>
+    </body>
   );
 }
 // const apiInfo = await data.results.map((el) => {

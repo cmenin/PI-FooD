@@ -67,7 +67,6 @@ export function getDetails(id){
     return async function (dispatch){
         try{
             var json = await axios.get("http://localhost:3001/recipe/"+id)
-            console.log(json.data,"DATAAA aCtion")
             return dispatch ({
                 type: "GET_DETAIL",
                 payload: json.data 
@@ -84,5 +83,4 @@ export function postRecipe(payload){
         const response = await axios.post("http://localhost:3001/recipe/", payload)
     return response
     }
-
 }

@@ -2,6 +2,7 @@ import React, {useEffect,useState} from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetails } from "../actions";
+import "./detail.css"
 
 export default function Details(props){
     const dispatch = useDispatch()
@@ -20,12 +21,12 @@ export default function Details(props){
     //LOADING
 
     return (
-        <div>
+        <div >
             <h2>{theRecipe.title}</h2>
-            <div>
-                <img src={theRecipe.image} alt= "IMG NOT FOUND"></img>
+            <div clasname="divdetail1">
+                <img  clasname="imagdetail" src={theRecipe.image} alt= "IMG NOT FOUND"></img>
             </div>
-            <div>
+            <div className="divdetail">
                 <ul>
                     <p>SUMMARY: {theRecipe.summary}</p>
                     <p>DIETS: {theRecipe.diets}</p>

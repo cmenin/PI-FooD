@@ -1,0 +1,42 @@
+body{
+    background-image: url("https://previews.123rf.com/images/urfingus/urfingus1908/urfingus190800005/127935438-cocina-industrial-cocina-moderna-del-restaurante-ilustraci%C3%B3n-3d.jpg");
+    height: 550px;
+}
+
+
+
+    /* margin:0%;
+    height: 150vh;
+    background-image: url("https://media.giphy.com/media/nqtA5obHo3CSelfeKS/giphy.gif");
+    display: grid;
+    place-content: center;
+    text-align: center;
+    display: grid;
+    place-content: center;
+    text-align: center;
+    background-repeat:no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size:initial;
+    background-color:rgb(248, 244, 244);;
+    overflow:hidden; */
+
+
+@font-face {
+    font-family: cursivaneg;
+    src: url(Lobster-Regular.ttf);
+}
+
+.bienvenidos{
+font-family: cursivaneg;
+font-size: 65px;
+/* background-color: cornsilk; */
+}
+
+.landing1{
+    margin: 10%;
+}
+
+.bottonhome{
+    
+}

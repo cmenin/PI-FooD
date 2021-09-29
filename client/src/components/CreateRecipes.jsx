@@ -7,8 +7,8 @@ import { Link, useHistory } from "react-router-dom";
 export default function CreateRecipe(params){
 
     const dispatch = useDispatch();
-    const allRecipes = useSelector(state => state.crearRecetas);
-    const [form, setForm] = useState({  dieta:[], });
+    const allDietas = useSelector(state => state.diet);
+    const [form, setForm] = useState({  diet:[], });
 
     useEffect(() =>{
         dispatch(getDiets())
@@ -24,12 +24,14 @@ export default function CreateRecipe(params){
       function handleDiets(e) {
         setForm({
           ...form,
-          diets: [...form.dietas, e.target.value],
+          diet: [...form.diet, e.target.value],
         });
       }
 
     function handleSubmit(e){
+      e.preventDefault()
         dispatch(postRecipe(form));
+        console.log(form)
         alert("Receta creada!");
         setForm({});
         dispatch(getRecipes());
@@ -45,99 +47,100 @@ export default function CreateRecipe(params){
         <h1 className="crearrecipe">CREATE YOUR RECIPE</h1>
         <div className="divform"></div>
         <form onSubmit = {e => handleSubmit(e)}>
-        <label className="labelname" htmlFor="title">Title:</label>
+        <label className="labelname" htmlFor="title">Title:
             <input
               type="text"
               id="title"
               name="title"
               value={form.title}
               onChange={handleChange}
-              required //no acepta un campo vacio
+              required 
             />
+            </label>
 
-        <label htmlFor="summary">Summary:</label>
+        <label htmlFor="summary">Summary:
             <input
               type="text"
               id="summary"
               name="summary"
               value={form.summary}
               onChange={handleChange}
-              required //no acepta un campo vacio
+              required 
             />
+            </label>
 
-        <label htmlFor="healthScore">HealthScore:</label>
+        <label htmlFor="healthScore">HealthScore:
             <input
               type="number"
               id="healthScore"
               name="healthScore"
               value={form.healthScore}
               onChange={handleChange}
-              required //no acepta un campo vacio
+              required 
             />
+            </label>
 
-        <label htmlFor="cookingTime">CookingTime:</label>
+        <label htmlFor="likes">Likes:
+        <input 
+            type="number"
+            id="likes"
+            name="likes"
+            value={form.likes}
+            onChange={handleChange}
+            required 
+        
+        ></input>
+        </label>
+
+        <label htmlFor="cookingTime">CookingTime:
             <input
               type="number"
               id="cookingTime"
               name="cookingTime"
               value={form.cookingTime}
               onChange={handleChange}
-              required //no acepta un campo vacio
+              required 
             />
+            </label>
 
-        <label htmlFor="cuisines">Cuisines:</label>
+        <label htmlFor="cuisines">Cuisines:
             <input
               type="text"
               id="cuisines"
               name="cuisines"
               value={form.cuisines}
               onChange={handleChange}
-              required //no acepta un campo vacio
+              required 
             />
+            </label>
 
-        <label htmlFor="instructions">Instructions:</label>
+        <label htmlFor="instructions">Instructions:
             <input
               type="text"
               id="instructions"
               name="instructions"
               value={form.instructions}
               onChange={handleChange}
-              required //no acepta un campo vacio
+              required 
             />
+            </label>
 
-
-        {/* <label htmlFor="diets">Diets:</label>
-            <input
-              type="text"
-              id="diets"
-              name="diets"
-              value={form.diets}
-              onChange={(e) => handleDiets(e)}
-              defaultValue=""
-              required //no acepta un campo vacio
-            />
-             <label htmlFor="type">
-              Type:
-              <select
-                onChange={(e) => handleType(e)}
-                id="type"
-                name="type"
-                defaultValue=""
-              >
-                <option name="type" value="">
+<label htmlFor="diets">Dieta:
+         <select id="" defaultValue="" name="diets" onChange={(e) => handleDiets(e)}>
+         <option name="diets" value="">
                   Select
                 </option>
-                {allTypes?.map((t) => (
-                  <option value={parseInt(t.id)}> {t.name} </option>
-                ))}
+          { allDietas?.map(el=>
+            <option
+              type="text"
+              id="diets"
+              value={el.title}
+              
+              required > {el.title}
+              </option>
+              ) }
               </select>
-              <ul>
-                <li>{form.allTypes?.map((el) => el.name + " - ")}</li>
-              </ul>
-            </label> */}
-
-
-
+              </label>
 
 
         <label htmlFor="score">Score:</label>
@@ -147,7 +150,7 @@ export default function CreateRecipe(params){
               name="score"
               value={form.score}
               onChange={handleChange}
-              required //no acepta un campo vacio
+              required 
             />
 
         <label htmlFor="image">Image:</label>
@@ -157,7 +160,6 @@ export default function CreateRecipe(params){
               name="image"
               value={form.image}
               onChange={handleChange}
-              required //no acepta un campo vacio
             />
 
             <button type="submit">CREATE</button>

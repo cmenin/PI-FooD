@@ -1,6 +1,6 @@
 const { Router, application } = require("express");
 const axios = require("axios");
-const { Recipe, Dieta } = require("../db");
+const { Recipe, Diet } = require("../db");
 const { API_KEY } = process.env;
 // import API_KEY from "../../.env"
 // Importar todos los routers;
@@ -15,13 +15,13 @@ router.get("/recipe", async (req, res) => {
   const { name } = req.query;
 
   const { data } = await axios.get(
-    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=20&addRecipeInformation=true`
-    // "https://pokeapi.co/api/v2/pokemon"
+    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=100&addRecipeInformation=true`
+    
   );
   const rta = data.results;
   const getDb = await Recipe.findAll({
       include: {
-        model: Dieta,
+        model: Diet,
         attributes: ["title"],
         through: {
           attributes: [],
@@ -44,20 +44,20 @@ router.get("/recipe", async (req, res) => {
 });
 
 router.get("/dieta", async (req, res) => {
-  const allDieta = await Dieta.findAll();
+  const allDieta = await Diet.findAll();
   if (allDieta.length === 0) {
     const dietaApi = await axios.get(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=20&addRecipeInformation=true`
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=100&addRecipeInformation=true`
     );
     const dieta = dietaApi.data.results.map((el) => el.diets);
     const dietasFlat = dieta.flat();
 
     const dietasFiltradas = dietasFlat.filter((d, index) => { 
-      return dietasFlat.indexOf(d) === index   //busca el primer indice de la dieta 'd' en el arreglo dietasUnidas y se fija que coincida con el index para devolverlo
+      return dietasFlat.indexOf(d) === index   
   }) 
 
     await dietasFiltradas.forEach((d) =>
-      Dieta.findOrCreate({
+      Diet.findOrCreate({
         where: { title: d },
       })
     );
@@ -84,7 +84,7 @@ router.post("/recipe", async (req, res) => {
       instructions,
       createdInDb
   } = req.body;
-
+ console.log(req.body,"EL MALDEETO BODEE")
   if(title && summary){
     let recipeCreate = await Recipe.create({
       title, 
@@ -99,17 +99,11 @@ router.post("/recipe", async (req, res) => {
       createdInDb
     });
 
-      const dietsDB = await Dieta.findAll({ //adddiets con arreglo de id
+      const dietsDB = await Diet.findAll({ 
         where: {title: diets}
     })
+    await recipeCreate.addDiet(dietsDB); 
 
-    await recipeCreate.addDieta(dietsDB); 
-
-  // const dietaDB = diets.map( async d=>{
-  //       const dietByRecipe = await Dieta.findByPk(d) 
-  //       recipeCreate.addDieta(dietByRecipe);
-  //   });
-  //   await Promise.all(dietaDB)
 
     res.send("RECIPE CREATED");
   }
@@ -119,15 +113,13 @@ router.post("/recipe", async (req, res) => {
   }
 });
 
-
-//MODIFICAAAAAR 
 router.get("/recipe/:id", async (req, res) => {
   const { id } = req.params;
   try {
     if(id.length > 10){
       const recipeDB = await Recipe.findByPk( id, {
         include: {
-          model: Dieta,
+          model: Diet,
           attributes: ["title"],
           through: {
             attributes: [],

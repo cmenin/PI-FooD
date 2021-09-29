@@ -44,7 +44,7 @@ module.exports = (sequelize) => {
       defaultValue:0
     },
     instructions:{
-      type: DataTypes.ARRAY(DataTypes.STRING),
+      type: DataTypes.TEXT,
     },
     createdInDb:{ 
       type: DataTypes.BOOLEAN,
