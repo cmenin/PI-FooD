@@ -140,6 +140,9 @@ export default function CreateRecipe(params){
               </option>
               ) }
               </select>
+              <ul>
+                <li>{form.diet?.map(el=> el +" ")}</li>
+              </ul>
               </label>
 
 

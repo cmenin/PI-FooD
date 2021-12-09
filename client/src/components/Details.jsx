@@ -1,13 +1,15 @@
 import React, {useEffect,useState} from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetails } from "../actions";
+import { getDetails, resetRecipe } from "../actions";
 import "./detail.css"
+import foto from '../../src/foto.png'
 
 export default function Details(props){
     const dispatch = useDispatch()
 
     useEffect(()=>{
+
       dispatch(getDetails(props.match.params.id))
     }, [dispatch])
 
@@ -19,12 +21,13 @@ export default function Details(props){
 
     const theRecipe = useSelector(state=> state.detail)
     //LOADING
+    console.log(theRecipe.diets,"LAS DIETS")
 
     return (
         <div >
             <h2>{theRecipe.title}</h2>
             <div clasname="divdetail1">
-                <img  clasname="imagdetail" src={theRecipe.image} alt= "IMG NOT FOUND"></img>
+                <img  clasname="imagdetail" src={theRecipe.image ? theRecipe.image : foto  } alt= "IMG NOT FOUND"></img>
             </div>
             <div className="divdetail">
                 <ul>
