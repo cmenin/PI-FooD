@@ -6,13 +6,13 @@ import foto from '../../src/foto.png'
 
 
 export default function Card({title, image,diets, score, id}){
-    console.log('diets---------', diets)
+    console.log('diets---------',title, diets)
     return(
         
         <div className="container">
             <Link to={`/recipe/${id}`}>
             <div>
-            <img className="img" src={image ? image: foto  } alt="not found" width="200xp" height="250xp" />
+            <img className="img" src={image? image: foto  } alt="not found" width="200xp" height="250xp" />
     
             <h3 className='h3title'>{title}</h3>
             

@@ -80,12 +80,6 @@ function rootReducer(state = initialState, action) {
       return{
         ...state,
       }
-
-    case "RESET_RECIPE":
-      return{
-        ...state,
-        recipes:[]
-      }
     
 
     default:

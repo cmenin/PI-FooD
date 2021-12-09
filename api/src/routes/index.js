@@ -15,7 +15,7 @@ router.get("/recipe", async (req, res) => {
   const { name } = req.query;
 
   const { data } = await axios.get(
-    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=10&addRecipeInformation=true`
+    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=100&addRecipeInformation=true`
     
   );
   const rta = data.results;
@@ -98,7 +98,6 @@ router.post("/recipe", async (req, res) => {
       instructions,
       createdInDb
     });
-    console.log(diets, "LAS DIETSSSSSSSSSSSSSSSSSSSSSss")
 
       const dietsDB = await Diet.findAll({ 
         where: {title: diets}
@@ -107,7 +106,6 @@ router.post("/recipe", async (req, res) => {
 
 
     res.send("RECIPE CREATED");
-    console.log(recipeCreate,"VIENE UN OBJ????")
   }
 
   else {
@@ -147,7 +145,7 @@ router.get("/recipe/:id", async (req, res) => {
       healthScore: data.healthScore,
       cookingTime: data.readyInMinutes,
       cuisines: data.cuisines,
-      instructions: data.analyzedInstructions[0].steps?.map(el => el.step)
+      instructions: data.analyzedInstructions[0].steps.map(el => el.step)
     }
     res.send(result) 
 }

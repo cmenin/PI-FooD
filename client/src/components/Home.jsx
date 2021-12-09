@@ -122,8 +122,7 @@ export default function Home() {
       </div>
 
       {
-        currentRecipes?.map(r => {
-            console.log(r.diets,"DIETSSS DEL HOME------------")
+          currentRecipes?.map(r => {
               return (
                   <fragment>
             <Card

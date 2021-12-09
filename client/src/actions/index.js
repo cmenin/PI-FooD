@@ -3,7 +3,6 @@ import axios from 'axios';
 export function getRecipes(){
     return async function(dispatch){
         var json = await axios.get('http://localhost:3001/recipe');
-        console.log(json.data, "DATA DEL ACTION!!!!!!")
         return dispatch ({
             type: 'GET_RECIPES',
             payload: json.data
@@ -65,11 +64,9 @@ export function orderByspoonacularScore(payload){
 }
 
 export function getDetails(id){
-
     return async function (dispatch){
         try{
             var json = await axios.get("http://localhost:3001/recipe/"+id)
-            console.log(json.data," TRAE LA INNNFOOO ????????????????")
             return dispatch ({
                 type: "GET_DETAIL",
                 payload: json.data 
@@ -85,10 +82,5 @@ export function postRecipe(payload){
     return async function(dispatch){
         const response = await axios.post("http://localhost:3001/recipe/", payload)
     return response
-    }
-}
-export function resetRecipe(){
-    return{
-        type: 'RESET_RECIPE',
     }
 }
